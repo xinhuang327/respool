@@ -1,6 +1,8 @@
 package respool
 
-import "sync"
+import (
+	"sync"
+)
 
 type IDisposable interface {
 	Dispose()
@@ -47,11 +49,9 @@ func (pool *ResourcePool) PutResource(res interface{}) {
 			disposable.Dispose()
 		}
 	}
+	// fmt.Println("len(pool.buffer)", len(pool.buffer))
 }
 
 func (pool *ResourcePool) Size() int {
-	pool.mutex.Lock()
-	defer pool.mutex.Unlock()
-
 	return len(pool.buffer)
 }
